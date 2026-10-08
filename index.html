@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shark Electronics - শারদীয় শুভেচ্ছা ও ধামাকা অফার</title>
+  <style>
+    * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+    body { background: #fdf5f5; margin: 0; padding: 15px; color: #333; }
+    .container { 
+      max-width: 480px; 
+      margin: 0 auto; 
+      background: #ffffff; 
+      border-radius: 16px; 
+      box-shadow: 0 8px 25px rgba(0,0,0,0.08); 
+      padding: 24px 20px; 
+      border-top: 6px solid #d32f2f; 
+      text-align: center; 
+    }
+    
+    /* Header & Puja Wish */
+    .puja-wish { 
+      font-size: 26px; 
+      font-weight: 800; 
+      color: #d32f2f; 
+      margin-bottom: 8px; 
+      line-height: 1.3;
+    }
+    
+    .offer-subheading {
+      display: inline-block;
+      background: linear-gradient(135deg, #fff3e0, #ffe082);
+      color: #b71c1c;
+      font-size: 15px;
+      font-weight: 800;
+      padding: 8px 16px;
+      border-radius: 30px;
+      border: 1.5px dashed #f57c00;
+      margin-bottom: 18px;
+      box-shadow: 0 2px 6px rgba(245, 124, 0, 0.15);
+    }
+    
+    /* Company Details Box (English) */
+    .about-box { 
+      background: #fafafa; 
+      border: 1px solid #e0e0e0; 
+      border-left: 5px solid #d32f2f; 
+      border-radius: 10px; 
+      padding: 16px; 
+      margin-bottom: 22px; 
+      text-align: left; 
+    }
+    .about-box h3 { 
+      margin: 0 0 10px 0; 
+      color: #d32f2f; 
+      font-size: 18px; 
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .about-box p { 
+      font-size: 13.5px; 
+      line-height: 1.6; 
+      margin: 0 0 8px 0; 
+      color: #444; 
+    }
+    .about-box p:last-child {
+      margin-bottom: 0;
+    }
+    
+    /* Progress Bar */
+    .progress-container { 
+      width: 100%; 
+      background: #e9ecef; 
+      border-radius: 20px; 
+      height: 18px; 
+      margin: 15px 0 6px 0; 
+      overflow: hidden; 
+    }
+    .progress-bar { 
+      width: 0%; 
+      height: 100%; 
+      background: linear-gradient(90deg, #27ae60, #2ecc71); 
+      transition: width 0.3s ease; 
+    }
+    .counter-text { 
+      font-weight: 700; 
+      color: #27ae60; 
+      margin-bottom: 16px; 
+      font-size: 15px; 
+    }
+    
+    /* Buttons */
+    .btn { 
+      display: inline-block; 
+      width: 100%; 
+      padding: 14px; 
+      border: none; 
+      border-radius: 30px; 
+      font-size: 16px; 
+      font-weight: bold; 
+      cursor: pointer; 
+      transition: all 0.2s ease; 
+    }
+    .btn-share { 
+      background: #25d366; 
+      color: #fff; 
+      box-shadow: 0 4px 12px rgba(37, 211, 102, 0.35); 
+    }
+    .btn-share:hover { 
+      background: #1ebc59; 
+      transform: translateY(-1px);
+    }
+    .btn-submit { 
+      background: #d32f2f; 
+      color: #fff; 
+      box-shadow: 0 4px 12px rgba(211, 47, 47, 0.3);
+    }
+    .btn-submit:hover {
+      background: #b71c1c;
+    }
+    
+    /* Form */
+    .form-group { margin-bottom: 14px; text-align: left; }
+    .form-group label { font-size: 13px; font-weight: 600; color: #333; }
+    .form-group input { 
+      width: 100%; 
+      padding: 11px; 
+      border: 1px solid #ccc; 
+      border-radius: 8px; 
+      margin-top: 5px; 
+      font-size: 15px; 
+      outline: none; 
+    }
+    .form-group input:focus {
+      border-color: #d32f2f;
+    }
+
+    /* Admin Panel */
+    #adminView { display: none; text-align: left; }
+    table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 13px; }
+    th, td { border: 1px solid #ddd; padding: 10px 8px; text-align: left; }
+    th { background: #f8f9fa; color: #333; }
+  </style>
+
+  <!-- Firebase Web SDK (Compat version for single-file web pages) -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- ================= কাস্টমার ভিউ ================= -->
+  <div id="customerView">
+    <div class="puja-wish">🌸 শারদীয়ার প্রীতি ও শুভেচ্ছা 🌸</div>
+    <div class="offer-subheading">🎁 Share & Earn up to ₹100 Cash & Exclusive Gifts!</div>
+
+    <!-- About Section (English) -->
+    <div class="about-box">
+      <h3>⚡ About Shark Electronics</h3>
+      <p>Finally, we have grown <strong>Shark Electronics</strong> into a proud family of <strong>10,000+ satisfied customers</strong>! In addition, we are successfully delivering doorstep electrical services and custom sound system solutions across various districts of West Bengal.</p>
+      <p>With your generous support, <strong>Shark Electronics & Electrical Services</strong> has grown into a trusted household brand name. To celebrate this milestone during this festive season, we have arranged this special community task. We warmly welcome everyone to join in, share the joy, and claim exciting rewards!</p>
+    </div>
+
+    <!-- Share Section -->
+    <div id="shareSection">
+      <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+      </div>
+      <div class="counter-text" id="counterText">শেয়ার করা হয়েছে: 0 / 20</div>
+      
+      <button class="btn btn-share" id="shareBtn" onclick="handleShare()">
+        📲 Share & Earn (হোয়াটসঅ্যাপে শেয়ার করুন)
+      </button>
+      <p style="font-size: 12px; color: #777; margin-top: 10px;">টাস্ক পূর্ণ করতে বন্ধুদের বা হোয়াটসঅ্যাপ গ্রুপে ২০ বার শেয়ার করুন।</p>
+    </div>
+
+    <!-- Submit Form Section (Hidden Initially) -->
+    <div id="formSection" style="display: none; margin-top: 20px;">
+      <h3 style="color: #27ae60; margin: 0 0 10px 0;">🎉 অভিনন্দন! টাস্ক সফলভাবে সম্পন্ন হয়েছে।</h3>
+      <p style="font-size: 13px; color: #555; margin-bottom: 15px;">আপনার উপহার এবং ক্যাশব্যাক নিশ্চিত করতে নিচের বিবরণটি পূরণ করুন:</p>
+      
+      <div class="form-group">
+        <label>আপনার সম্পূর্ণ নাম:</label>
+        <input type="text" id="custName" placeholder="আপনার নাম লিখুন">
+      </div>
+      <div class="form-group">
+        <label>হোয়াটসঅ্যাপ / ফোন নম্বর:</label>
+        <input type="tel" id="custPhone" placeholder="১০ সংখ্যার মোবাইল নম্বর দিন">
+      </div>
+      <button class="btn btn-submit" onclick="submitForm()">🎁 সাবমিট করে রিওয়ার্ড দাবি করুন</button>
+    </div>
+  </div>
+
+  <!-- ================= অ্যাডমিন প্যানেল ভিউ ================= -->
+  <div id="adminView">
+    <h2 style="color: #d32f2f; text-align: center; margin-bottom: 4px;">🛠 Shark Admin Dashboard</h2>
+    <p style="text-align: center; font-size: 13px; color: #666; margin-top: 0;">রেফার টাস্ক পূরণকারী কাস্টমারদের তালিকা</p>
+    
+    <table>
+      <thead>
+        <tr>
+          <th>নাম</th>
+          <th>মোবাইল নম্বর</th>
+          <th>তারিখ ও সময়</th>
+        </tr>
+      </thead>
+      <tbody id="leadTableBody">
+        <tr><td colspan="3" style="text-align:center;">লোড হচ্ছে...</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+<script>
+  // --- ১. তোমার আসল Firebase কনফিগারেশন সেটআপ ---
+  const firebaseConfig = {
+    apiKey: "AIzaSyBbbFN92dAfOCnueMk8LSkuarIohf-EPU8",
+    authDomain: "shark-durgapuja-offer.firebaseapp.com",
+    databaseURL: "https://shark-durgapuja-offer-default-rtdb.firebaseio.com",
+    projectId: "shark-durgapuja-offer",
+    storageBucket: "shark-durgapuja-offer.firebasestorage.app",
+    messagingSenderId: "51649870965",
+    appId: "1:51649870965:web:8d7a3dc81a79edc8d2cc3c",
+    measurementId: "G-DDQS5FRVQS"
+  };
+
+  // ফায়ারবেস ইনিশিয়ালাইজেশন
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.database();
+
+  // --- ২. শেয়ার ও কাউন্টার লজিক ---
+  let shareCount = 0;
+  const targetShares = 20;
+
+  function handleShare() {
+    const currentLink = window.location.href.split('?')[0];
+    const shareText = "🌸 শার্ক ইলেকট্রনিক্স-এর তরফ থেকে শারদীয় শুভেচ্ছা ও ধামাকা ক্যাশব্যাক অফার! লিঙ্কটি ওপেন করে আপনিও জিতে নিন ₹১০০ পর্যন্ত ক্যাশ ও আকর্ষণীয় গিফট: " + currentLink;
+
+    if (navigator.share) {
+      navigator.share({
+        title: 'Shark Electronics Puja Offer',
+        text: shareText,
+        url: currentLink
+      }).then(updateShareProgress).catch(() => {
+        openWhatsApp(shareText);
+      });
+    } else {
+      openWhatsApp(shareText);
+    }
+  }
+
+  function openWhatsApp(text) {
+    window.open("whatsapp://send?text=" + encodeURIComponent(text));
+    updateShareProgress();
+  }
+
+  function updateShareProgress() {
+    shareCount++;
+    if (shareCount > targetShares) shareCount = targetShares;
+
+    // প্রগ্রেস বার ও টেক্সট আপডেট
+    document.getElementById("counterText").innerText = `শেয়ার করা হয়েছে: ${shareCount} / ${targetShares}`;
+    let percentage = (shareCount / targetShares) * 100;
+    document.getElementById("progressBar").style.width = percentage + "%";
+
+    // ২০টি শেয়ার পূর্ণ হলে ফর্ম দেখানো হবে
+    if (shareCount >= targetShares) {
+      document.getElementById("shareSection").style.display = "none";
+      document.getElementById("formSection").style.display = "block";
+    }
+  }
+
+  // --- ৩. ফর্ম সাবমিট ও ফায়ারবেসে ডাটা সংরক্ষণ ---
+  function submitForm() {
+    const name = document.getElementById("custName").value.trim();
+    const phone = document.getElementById("custPhone").value.trim();
+
+    if (!name || !phone || phone.length < 10) {
+      alert("অনুগ্রহ করে আপনার সঠিক নাম ও ১০ সংখ্যার মোবাইল নম্বর লিখুন!");
+      return;
+    }
+
+    const leadData = {
+      name: name,
+      phone: phone,
+      submittedAt: new Date().toLocaleString()
+    };
+
+    db.ref("puja_leads").push(leadData)
+      .then(() => {
+        alert("অভিনন্দন! আপনার বিবরণ সফলভাবে সেভ হয়েছে। Shark Electronics-এর পক্ষ থেকে শীঘ্রই আপনার সাথে যোগাযোগ করা হবে।");
+        document.getElementById("formSection").innerHTML = "<div style='padding: 20px 0;'><h3 style='color:#27ae60;'>ধন্যবাদ! আপনার সাবমিশন গ্রহণ করা হয়েছে। 🎉</h3><p style='color:#666;'>খুব শীঘ্রই আমাদের টিম যোগাযোগ করবে।</p></div>";
+      })
+      .catch((err) => {
+        alert("সমস্যা হয়েছে! অনুগ্রহ করে ফায়ারবেস রুলস চেক করুন বা আবার চেষ্টা করুন।");
+      });
+  }
+
+  // --- ৪. সিক্রেট লিঙ্ক দিয়ে অ্যাডমিন প্যানেল ওপেনিং (?admin=shark2026) ---
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.get('admin') === 'shark2026') {
+    document.getElementById("customerView").style.display = "none";
+    document.getElementById("adminView").style.display = "block";
+    loadAdminData();
+  }
+
+  function loadAdminData() {
+    db.ref("puja_leads").on("value", (snapshot) => {
+      const tbody = document.getElementById("leadTableBody");
+      tbody.innerHTML = "";
+      const data = snapshot.val();
+      if (data) {
+        Object.values(data).reverse().forEach(lead => {
+          let tr = document.createElement("tr");
+          tr.innerHTML = `<td><strong>${lead.name}</strong></td><td><a href="tel:${lead.phone}" style="color:#d32f2f; text-decoration:none; font-weight:bold;">${lead.phone}</a></td><td>${lead.submittedAt}</td>`;
+          tbody.appendChild(tr);
+        });
+      } else {
+        tbody.innerHTML = "<tr><td colspan='3' style='text-align:center;'>এখনও কোনো এন্ট্রি জমা পড়েনি।</td></tr>";
+      }
+    });
+  }
+</script>
+
+</body>
+</html>
